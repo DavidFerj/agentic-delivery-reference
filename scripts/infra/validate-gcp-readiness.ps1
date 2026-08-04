@@ -39,11 +39,11 @@ if ($null -eq $terraform) {
     throw "Terraform is not installed. Use -SkipTerraform only for the static local smoke test."
 }
 
-& $terraform.Source -chdir=$terraformRoot fmt -check -recursive
+& $terraform.Source "-chdir=$terraformRoot" fmt -check -recursive
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-& $terraform.Source -chdir=$terraformRoot init -backend=false -input=false
+& $terraform.Source "-chdir=$terraformRoot" init -backend=false -input=false
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-& $terraform.Source -chdir=$terraformRoot validate
+& $terraform.Source "-chdir=$terraformRoot" validate
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "Terraform formatting and provider schema validation passed without applying resources."
