@@ -6,10 +6,24 @@ param(
 $ErrorActionPreference = "Stop"
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $terraformRoot = Join-Path $projectRoot "infra\terraform\gcp-platform"
-$python = Join-Path $projectRoot ".venv\Scripts\python.exe"
+$windowsVenvPython = Join-Path $projectRoot ".venv\Scripts\python.exe"
+$unixVenvPython = Join-Path $projectRoot ".venv/bin/python"
 
-if (-not (Test-Path -LiteralPath $python)) {
-    throw "Local Python environment missing. Run scripts/setup/bootstrap.ps1 first."
+if (Test-Path -LiteralPath $windowsVenvPython) {
+    $python = $windowsVenvPython
+}
+elseif (Test-Path -LiteralPath $unixVenvPython) {
+    $python = $unixVenvPython
+}
+else {
+    $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+    if ($null -eq $pythonCommand) {
+        $pythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
+    }
+    if ($null -eq $pythonCommand) {
+        throw "Python is unavailable. Install a supported Python runtime or bootstrap the local environment."
+    }
+    $python = $pythonCommand.Source
 }
 
 & $python (Join-Path $PSScriptRoot "validate_gcp_readiness.py")
