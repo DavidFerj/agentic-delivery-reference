@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "version": "deterministic-red-team-v1",
+  "executedAt": "2026-08-04",
+  "passed": true,
+  "tests": 10,
+  "cases": [
+    { "id": "anonymous-access", "passed": true },
+    { "id": "broken-role-access", "passed": true },
+    { "id": "invalid-correlation", "passed": true },
+    { "id": "oversized-input", "passed": true },
+    { "id": "prompt-injection", "passed": true },
+    { "id": "rate-abuse", "passed": true },
+    { "id": "sensitive-telemetry", "passed": true }
+  ]
+}

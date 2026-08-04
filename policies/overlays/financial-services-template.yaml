@@ -1,0 +1,7 @@
+schemaVersion: 1
+id: financial-services-template
+enabled: false
+status: requires_legal_review
+candidateData: [financial_information, payment_card_data]
+candidateSources: [GLBA, "FTC Safeguards Rule", FCRA, NYDFS, "PCI DSS"]
+requiredDecisions: [applicability, approved_vendors, encryption, retention, incident_process, control_testing]

@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "executedAt": {
+      "format": "date-time",
+      "title": "Executedat",
+      "type": "string"
+    },
+    "executionId": {
+      "title": "Executionid",
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "title": "Idempotencykey",
+      "type": "string"
+    },
+    "proposalDigest": {
+      "title": "Proposaldigest",
+      "type": "string"
+    },
+    "simulated": {
+      "const": true,
+      "default": true,
+      "title": "Simulated",
+      "type": "boolean"
+    },
+    "status": {
+      "const": "created",
+      "default": "created",
+      "title": "Status",
+      "type": "string"
+    },
+    "ticketId": {
+      "title": "Ticketid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "executionId",
+    "ticketId",
+    "executedAt",
+    "idempotencyKey",
+    "proposalDigest"
+  ],
+  "title": "ToolExecutionResult",
+  "type": "object"
+}

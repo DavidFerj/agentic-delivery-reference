@@ -1,0 +1,14 @@
+{
+  "goldenSetVersion": "deterministic-v1",
+  "passRate": 1.0,
+  "passed": true,
+  "results": [
+    { "actualOutcome": "planned", "caseId": "general-plan", "passed": true },
+    { "actualOutcome": "planned", "caseId": "integration-plan", "passed": true },
+    { "actualOutcome": "planned", "caseId": "security-plan", "passed": true },
+    { "actualOutcome": "planned", "caseId": "data-plan", "passed": true },
+    { "actualOutcome": "blocked", "caseId": "prompt-injection", "passed": true }
+  ],
+  "schemaVersion": 1,
+  "threshold": 1.0
+}

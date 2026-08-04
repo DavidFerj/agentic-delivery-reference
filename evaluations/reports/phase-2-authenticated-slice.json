@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "phase": "phase-2-authenticated-web-api-slice",
+  "executedAt": "2026-08-03",
+  "profile": "local",
+  "results": {
+    "pythonQuality": "passed-format-lint-types",
+    "pythonTests": { "status": "passed", "tests": 24, "coveragePercent": 100 },
+    "webQuality": "passed-lint-types",
+    "webTests": { "status": "passed", "tests": 3, "coveragePercent": 100 },
+    "productionBuild": "passed",
+    "nativeAuthenticatedSmoke": "passed",
+    "dependencyAudits": "passed-no-known-vulnerabilities"
+  },
+  "boundaries": {
+    "identity": "documented local fixtures behind an identity-provider port",
+    "persistence": "process-local repository behind a workflow-repository port",
+    "productionUse": "forbidden while local authentication is selected",
+    "externalIntegrations": "disabled"
+  }
+}

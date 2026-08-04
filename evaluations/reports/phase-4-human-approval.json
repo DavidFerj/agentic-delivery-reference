@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "phase": "4",
+  "executedAt": "2026-08-04",
+  "capabilities": [
+    "human-approval",
+    "local-asynchronous-execution"
+  ],
+  "results": {
+    "pythonTests": {
+      "status": "passed",
+      "tests": 78,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "webTests": {
+      "status": "passed",
+      "tests": 8,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "pythonLint": "passed",
+    "pythonTypeCheck": "passed",
+    "webLint": "passed",
+    "webTypeCheck": "passed",
+    "webProductionBuild": "passed",
+    "nativeSmoke": "passed",
+    "containerizedSmoke": "passed"
+  },
+  "verifiedBehavior": [
+    "immutable action proposal with canonical digest and expiry",
+    "reviewer or administrator approval and rejection",
+    "self-approval prevention",
+    "single-use and idempotent approval decisions",
+    "at-least-once local task delivery with idempotent simulated execution",
+    "governance re-evaluation immediately before tool execution",
+    "web states for proposal, decision, execution, rejection, and errors"
+  ],
+  "externalCallsPerformed": false,
+  "limitations": [
+    "workflow repository, task queue, audit sink, and simulated ticket records are process-local and non-durable",
+    "the operator endpoint processes local tasks inside the API process rather than a separately authenticated worker",
+    "no n8n, Vapi, MCP, model provider, ticketing system, cloud queue, or remote repository is connected"
+  ]
+}

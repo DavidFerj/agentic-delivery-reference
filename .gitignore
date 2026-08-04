@@ -1,0 +1,56 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+service-account*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Node
+node_modules/
+.pnpm-store/
+.next/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Infrastructure and local state
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.backend.hcl
+infra/terraform/gcp-platform/backend.tf
+.firebase/
+firebase-debug.log
+storage-data/
+firestore-data/
+
+# Local logs and process artifacts
+*.log
+*.pid
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Generated evidence containing local-only data
+evaluations/reports/local/

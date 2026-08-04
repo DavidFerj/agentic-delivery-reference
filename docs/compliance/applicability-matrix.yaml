@@ -1,0 +1,18 @@
+schemaVersion: 1
+baseline:
+  id: common-us-baseline
+  status: reviewed_for_reference
+  legalDetermination: false
+overlays:
+  - id: healthcare-template
+    enabled: false
+    status: requires_legal_review
+    candidateSources: [HIPAA, "42 CFR Part 2", "state health privacy laws"]
+  - id: financial-services-template
+    enabled: false
+    status: requires_legal_review
+    candidateSources: [GLBA, "FTC Safeguards Rule", FCRA, NYDFS]
+  - id: payments-template
+    enabled: false
+    status: requires_legal_review
+    candidateSources: ["PCI DSS"]

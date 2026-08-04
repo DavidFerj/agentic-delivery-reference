@@ -1,0 +1,14 @@
+schemaVersion: 1
+records:
+  - name: workflow-request
+    owner: service_requests
+    categories: [general_content, declared_or_detected_personal_data]
+    purpose: delivery_planning
+    currentStore: process_memory
+    retentionPolicy: decision_defined
+  - name: policy-decision
+    owner: governance_core
+    categories: [processing_metadata]
+    purpose: audit_and_enforcement
+    currentStore: workflow_record_and_process_audit
+    retentionPolicy: follows_workflow

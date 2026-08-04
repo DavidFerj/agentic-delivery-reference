@@ -1,0 +1,17 @@
+schemaVersion: 1
+id: common-us-baseline
+version: common-us-v1
+enabled: true
+legalDetermination: false
+defaultEnforcementMode: enforce
+approvedProviders: [local-api, deterministic-local]
+prohibitedAtIntake: [credentials, payment_card_data]
+restrictedObligations:
+  - audit_decision
+  - purpose_limitation
+  - data_minimization
+  - redact_before_external_processing
+  - local_processing_only
+  - no_provider_training
+  - human_approval_for_side_effects
+  - enhanced_access_logging

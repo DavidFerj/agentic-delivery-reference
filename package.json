@@ -1,0 +1,19 @@
+{
+  "name": "agentic-delivery-reference",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "web:dev": "pnpm --filter @agentic-delivery/web-console dev",
+    "web:lint": "pnpm --filter @agentic-delivery/web-console lint",
+    "web:typecheck": "pnpm --filter @agentic-delivery/web-console typecheck",
+    "web:test": "pnpm --filter @agentic-delivery/web-console test",
+    "web:coverage": "pnpm --filter @agentic-delivery/web-console test:coverage",
+    "web:build": "pnpm --filter @agentic-delivery/web-console build",
+    "check:web": "pnpm web:lint && pnpm web:typecheck && pnpm web:coverage && pnpm web:build"
+  }
+}

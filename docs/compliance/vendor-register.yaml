@@ -1,0 +1,8 @@
+schemaVersion: 1
+approvedRuntimeProviders:
+  - id: local-api
+    dataBoundary: process_local
+  - id: deterministic-local
+    dataBoundary: process_local
+externalProviders: []
+approvalRequiredForExternalProvider: true

@@ -1,0 +1,87 @@
+name: agentic-delivery-reference
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web-console/Dockerfile
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8080}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/python.Dockerfile
+    command:
+      - uvicorn
+      - agentic_api.main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+    environment:
+      ADR_ENVIRONMENT: ${ADR_ENVIRONMENT:-local}
+      ADR_LOG_LEVEL: ${ADR_LOG_LEVEL:-INFO}
+      ADR_AUTH_MODE: ${ADR_AUTH_MODE:-local}
+      ADR_WEB_ORIGIN: ${ADR_WEB_ORIGIN:-http://localhost:3000}
+      ADR_GOVERNANCE_MODE: ${ADR_GOVERNANCE_MODE:-enforce}
+      ADR_RATE_LIMIT_REQUESTS: ${ADR_RATE_LIMIT_REQUESTS:-100}
+      ADR_RATE_LIMIT_WINDOW_SECONDS: ${ADR_RATE_LIMIT_WINDOW_SECONDS:-60}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=2)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  worker:
+    build:
+      context: .
+      dockerfile: infra/docker/python.Dockerfile
+    command:
+      - uvicorn
+      - agentic_worker.main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+    ports:
+      - "${WORKER_PORT:-8081}:8080"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=2)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  evaluator:
+    profiles: ["tools"]
+    build:
+      context: .
+      dockerfile: infra/docker/python.Dockerfile
+    command: ["agentic-evaluator"]

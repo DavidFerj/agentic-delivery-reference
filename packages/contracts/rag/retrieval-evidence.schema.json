@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "corpusVersion": {
+      "title": "Corpusversion",
+      "type": "string"
+    },
+    "quarantinedDocumentIds": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Quarantineddocumentids",
+      "type": "array"
+    },
+    "selectedDocumentIds": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Selecteddocumentids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "corpusVersion",
+    "selectedDocumentIds",
+    "quarantinedDocumentIds"
+  ],
+  "title": "RetrievalEvidence",
+  "type": "object"
+}

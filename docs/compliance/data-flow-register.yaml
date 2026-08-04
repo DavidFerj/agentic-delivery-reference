@@ -1,0 +1,18 @@
+schemaVersion: 1
+flows:
+  - id: browser-to-api
+    source: web-console
+    destination: api
+    data: [request, declared_data_category, identity_fixture]
+    control: authenticated_contract_validation
+  - id: api-to-governance
+    source: api
+    destination: governance-core
+    data: [normalized_request, processing_context]
+    control: pre_persistence_policy_decision
+  - id: api-to-agent-runtime
+    source: api
+    destination: deterministic-agent-runtime
+    data: [permitted_workflow]
+    control: pre_planning_policy_decision
+externalFlows: []

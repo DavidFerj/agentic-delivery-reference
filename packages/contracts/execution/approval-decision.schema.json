@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "consumedAt": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Consumedat"
+    },
+    "decidedAt": {
+      "format": "date-time",
+      "title": "Decidedat",
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "approved",
+        "rejected"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "decisionId": {
+      "title": "Decisionid",
+      "type": "string"
+    },
+    "expiresAt": {
+      "format": "date-time",
+      "title": "Expiresat",
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "title": "Idempotencykey",
+      "type": "string"
+    },
+    "proposalDigest": {
+      "title": "Proposaldigest",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "reviewerId": {
+      "title": "Reviewerid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decisionId",
+    "decision",
+    "reviewerId",
+    "reason",
+    "decidedAt",
+    "expiresAt",
+    "proposalDigest",
+    "idempotencyKey"
+  ],
+  "title": "ApprovalDecision",
+  "type": "object"
+}

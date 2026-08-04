@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "EvaluationCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "passed"
+      ],
+      "title": "EvaluationCheck",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/EvaluationCheck"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "gateVersion": {
+      "title": "Gateversion",
+      "type": "string"
+    },
+    "passed": {
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "score": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Score",
+      "type": "number"
+    },
+    "threshold": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Threshold",
+      "type": "number"
+    }
+  },
+  "required": [
+    "gateVersion",
+    "passed",
+    "score",
+    "threshold",
+    "checks"
+  ],
+  "title": "EvaluationGateResult",
+  "type": "object"
+}

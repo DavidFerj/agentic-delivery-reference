@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "DataClassification": {
+      "enum": [
+        "internal",
+        "confidential",
+        "restricted_personal_data",
+        "regulated_high_impact_data"
+      ],
+      "title": "DataClassification",
+      "type": "string"
+    },
+    "EnforcementMode": {
+      "enum": [
+        "observe",
+        "warn",
+        "enforce"
+      ],
+      "title": "EnforcementMode",
+      "type": "string"
+    },
+    "Obligation": {
+      "enum": [
+        "audit_decision",
+        "purpose_limitation",
+        "data_minimization",
+        "redact_before_external_processing",
+        "local_processing_only",
+        "no_provider_training",
+        "human_approval_for_side_effects",
+        "enhanced_access_logging"
+      ],
+      "title": "Obligation",
+      "type": "string"
+    },
+    "PolicyOutcome": {
+      "enum": [
+        "permit",
+        "permit_with_controls",
+        "deny"
+      ],
+      "title": "PolicyOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "classification": {
+      "$ref": "#/$defs/DataClassification"
+    },
+    "decisionId": {
+      "title": "Decisionid",
+      "type": "string"
+    },
+    "enforcementMode": {
+      "$ref": "#/$defs/EnforcementMode"
+    },
+    "executionAllowed": {
+      "title": "Executionallowed",
+      "type": "boolean"
+    },
+    "obligations": {
+      "items": {
+        "$ref": "#/$defs/Obligation"
+      },
+      "title": "Obligations",
+      "type": "array"
+    },
+    "outcome": {
+      "$ref": "#/$defs/PolicyOutcome"
+    },
+    "overlayIds": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Overlayids",
+      "type": "array"
+    },
+    "policyVersion": {
+      "title": "Policyversion",
+      "type": "string"
+    },
+    "reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "retentionPolicy": {
+      "title": "Retentionpolicy",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decisionId",
+    "policyVersion",
+    "outcome",
+    "executionAllowed",
+    "enforcementMode",
+    "classification",
+    "obligations",
+    "reasons",
+    "retentionPolicy",
+    "overlayIds"
+  ],
+  "title": "PolicyDecision",
+  "type": "object"
+}

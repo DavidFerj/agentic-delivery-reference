@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "phase": "6",
+  "executedAt": "2026-08-04",
+  "capabilities": [
+    "secure-by-design-delivery",
+    "sanitized-operational-observability"
+  ],
+  "results": {
+    "pythonTests": {
+      "status": "passed",
+      "tests": 99,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "webTests": {
+      "status": "passed",
+      "tests": 8,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "redTeamTests": {
+      "status": "passed",
+      "tests": 10,
+      "cases": 7
+    },
+    "pythonLint": "passed",
+    "pythonTypeCheck": "passed",
+    "webLint": "passed",
+    "webTypeCheck": "passed",
+    "webProductionBuild": "passed",
+    "goldenSetPassRate": 1.0,
+    "nativeSmoke": "passed",
+    "containerizedSmoke": "passed"
+  },
+  "verifiedBehavior": [
+    "global validated or generated correlation identifier",
+    "allowlist-only request telemetry without payloads or headers",
+    "structured attributable audit events with UTC timestamps",
+    "recursive sensitive field and credential-shape redaction",
+    "separate liveness and readiness contracts",
+    "operator metrics and administrator-only audit evidence",
+    "per-principal local mutation rate limit",
+    "defensive HTTP response headers",
+    "deterministic abuse and leakage regression suite"
+  ],
+  "externalCallsPerformed": false,
+  "limitations": [
+    "telemetry, audit, and rate-limit records are process-local and non-durable",
+    "the local fixed-window limiter does not coordinate multiple replicas",
+    "no OpenTelemetry collector, managed monitoring, SIEM, WAF, managed IAM, or durable audit store is connected",
+    "security controls are a reference baseline and do not constitute certification or penetration testing"
+  ]
+}

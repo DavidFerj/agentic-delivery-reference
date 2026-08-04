@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "phase": "phase-3-deterministic-agent-runtime",
+  "executedAt": "2026-08-03",
+  "profile": "local",
+  "runtime": {
+    "orchestrator": "langgraph-1.2.10",
+    "provider": "deterministic-local/rules-v1",
+    "graphNodes": [
+      "validate",
+      "classify",
+      "build_context",
+      "retrieve_local_policy",
+      "plan"
+    ],
+    "networkCalls": 0,
+    "estimatedModelCostUsd": 0,
+    "checkpointAdapter": "in-memory"
+  },
+  "results": {
+    "pythonQuality": "passed-format-lint-types",
+    "pythonTests": { "status": "passed", "tests": 37, "coveragePercent": 100 },
+    "webQuality": "passed-lint-types",
+    "webTests": { "status": "passed", "tests": 4, "coveragePercent": 100 },
+    "openApiContract": "passed",
+    "productionBuild": "passed",
+    "nativeDeterministicSmoke": "passed",
+    "dependencyAudits": "passed-no-known-vulnerabilities"
+  },
+  "disabled": [
+    "real-model-providers",
+    "general-rag",
+    "human-approval",
+    "tool-execution",
+    "n8n",
+    "vapi",
+    "mcp",
+    "pytorch",
+    "tensorflow"
+  ]
+}

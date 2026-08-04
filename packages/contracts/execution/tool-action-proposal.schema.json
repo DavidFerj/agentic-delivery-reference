@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "TicketArguments": {
+      "additionalProperties": false,
+      "properties": {
+        "complexity": {
+          "title": "Complexity",
+          "type": "string"
+        },
+        "deliverySteps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deliverysteps",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "workflowId": {
+          "title": "Workflowid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "workflowId",
+        "title",
+        "complexity",
+        "deliverySteps"
+      ],
+      "title": "TicketArguments",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "const": "create_delivery_ticket",
+      "default": "create_delivery_ticket",
+      "title": "Action",
+      "type": "string"
+    },
+    "arguments": {
+      "$ref": "#/$defs/TicketArguments"
+    },
+    "expiresAt": {
+      "format": "date-time",
+      "title": "Expiresat",
+      "type": "string"
+    },
+    "proposalDigest": {
+      "title": "Proposaldigest",
+      "type": "string"
+    },
+    "proposalId": {
+      "title": "Proposalid",
+      "type": "string"
+    },
+    "schemaHash": {
+      "title": "Schemahash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "proposalId",
+    "arguments",
+    "schemaHash",
+    "proposalDigest",
+    "expiresAt"
+  ],
+  "title": "ToolActionProposal",
+  "type": "object"
+}

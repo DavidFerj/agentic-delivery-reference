@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "phase": "phase-3-5-data-protection-control-plane",
+  "executedAt": "2026-08-04",
+  "profile": "local",
+  "runtime": {
+    "policyVersion": "common-us-v1",
+    "defaultEnforcementMode": "enforce",
+    "approvedProviders": ["local-api", "deterministic-local"],
+    "activeOverlays": ["common-us-baseline"],
+    "externalNetworkCallsDuringWorkflow": 0
+  },
+  "results": {
+    "pythonQuality": "passed-format-lint-types",
+    "pythonTests": { "status": "passed", "tests": 63, "coveragePercent": 100 },
+    "webQuality": "passed-lint-types",
+    "webTests": { "status": "passed", "tests": 4, "coveragePercent": 100 },
+    "productionBuild": "passed",
+    "nativeControlPlaneSmoke": "passed",
+    "dependencyAudits": "passed-no-known-vulnerabilities"
+  },
+  "verifiedControls": [
+    "classification-before-storage",
+    "policy-decision-before-storage",
+    "policy-decision-before-agent-planning",
+    "prohibited-intake-denial",
+    "restricted-data-obligations",
+    "legacy-observe-and-warn-modes",
+    "unreviewed-overlay-fail-closed"
+  ],
+  "limitations": [
+    "deterministic-reference-classifier-not-production-dlp",
+    "process-local-state-and-audit",
+    "retention-selection-without-deletion-automation",
+    "industry-overlays-disabled-pending-legal-review",
+    "no-compliance-certification-or-legal-determination"
+  ]
+}

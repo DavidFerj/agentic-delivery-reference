@@ -1,0 +1,2 @@
+bucket = "replace-with-staging-terraform-state-bucket"
+prefix = "agentic-delivery-reference/staging"

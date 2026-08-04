@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "executedAt": "2026-08-04",
+  "validatedThroughPhase": "7",
+  "profile": "docker-desktop-wsl2",
+  "platform": {
+    "dockerDesktop": "4.85.0",
+    "dockerEngine": "29.6.2",
+    "dockerCompose": "5.3.1",
+    "wsl": "2.7.11",
+    "kernel": "6.18.33.2-microsoft-standard-WSL2"
+  },
+  "results": {
+    "composeContract": "passed",
+    "webImageBuild": "passed",
+    "apiImageBuild": "passed",
+    "workerImageBuild": "passed",
+    "evaluatorImageBuild": "passed",
+    "webHealth": "passed",
+    "apiHealth": "passed",
+    "workerHealth": "passed",
+    "governedWorkflow": "passed",
+    "humanApproval": "passed",
+    "localTaskExecution": "passed",
+    "groundedLocalRag": "passed",
+    "deterministicGuardrails": "passed",
+    "evaluationGate": "passed",
+    "goldenSetPassRate": 1.0,
+    "readiness": "passed",
+    "securityHeaders": "passed",
+    "sanitizedOperationalMetrics": "passed",
+    "structuredAuditEvidence": "passed",
+    "containerizedEvaluator": "passed",
+    "cleanup": "passed"
+  },
+  "externalProjectIntegrations": []
+}

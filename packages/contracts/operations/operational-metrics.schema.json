@@ -1,0 +1,90 @@
+{
+  "$defs": {
+    "RequestObservationResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "correlationId": {
+          "title": "Correlationid",
+          "type": "string"
+        },
+        "durationMs": {
+          "title": "Durationms",
+          "type": "number"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "occurredAt": {
+          "format": "date-time",
+          "title": "Occurredat",
+          "type": "string"
+        },
+        "route": {
+          "title": "Route",
+          "type": "string"
+        },
+        "statusCode": {
+          "title": "Statuscode",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "occurredAt",
+        "method",
+        "route",
+        "statusCode",
+        "durationMs",
+        "correlationId"
+      ],
+      "title": "RequestObservationResponse",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "averageDurationMs": {
+      "title": "Averagedurationms",
+      "type": "number"
+    },
+    "errorRequests": {
+      "title": "Errorrequests",
+      "type": "integer"
+    },
+    "recentRequests": {
+      "items": {
+        "$ref": "#/$defs/RequestObservationResponse"
+      },
+      "title": "Recentrequests",
+      "type": "array"
+    },
+    "routeCounts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Routecounts",
+      "type": "object"
+    },
+    "statusCounts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Statuscounts",
+      "type": "object"
+    },
+    "totalRequests": {
+      "title": "Totalrequests",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "totalRequests",
+    "errorRequests",
+    "averageDurationMs",
+    "statusCounts",
+    "routeCounts",
+    "recentRequests"
+  ],
+  "title": "OperationalMetricsResponse",
+  "type": "object"
+}

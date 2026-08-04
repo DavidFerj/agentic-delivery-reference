@@ -1,0 +1,83 @@
+{
+  "$defs": {
+    "AuditEventResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "actor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actor"
+        },
+        "correlationId": {
+          "title": "Correlationid",
+          "type": "string"
+        },
+        "decision": {
+          "title": "Decision",
+          "type": "string"
+        },
+        "eventId": {
+          "title": "Eventid",
+          "type": "string"
+        },
+        "occurredAt": {
+          "format": "date-time",
+          "title": "Occurredat",
+          "type": "string"
+        },
+        "outcome": {
+          "title": "Outcome",
+          "type": "string"
+        },
+        "resourceId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Resourceid"
+        }
+      },
+      "required": [
+        "eventId",
+        "occurredAt",
+        "actor",
+        "action",
+        "resourceId",
+        "decision",
+        "outcome",
+        "correlationId"
+      ],
+      "title": "AuditEventResponse",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "events": {
+      "items": {
+        "$ref": "#/$defs/AuditEventResponse"
+      },
+      "title": "Events",
+      "type": "array"
+    }
+  },
+  "required": [
+    "events"
+  ],
+  "title": "AuditEventsResponse",
+  "type": "object"
+}

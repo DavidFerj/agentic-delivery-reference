@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "additionalProperties": {
+        "const": "ready",
+        "type": "string"
+      },
+      "title": "Checks",
+      "type": "object"
+    },
+    "service": {
+      "const": "api",
+      "default": "api",
+      "title": "Service",
+      "type": "string"
+    },
+    "status": {
+      "const": "ready",
+      "default": "ready",
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "checks"
+  ],
+  "title": "ReadinessResponse",
+  "type": "object"
+}

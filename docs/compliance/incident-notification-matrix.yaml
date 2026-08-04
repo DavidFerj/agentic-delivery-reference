@@ -1,0 +1,9 @@
+schemaVersion: 1
+status: template_requires_legal_and_operational_review
+fieldsRequiredBeforeProduction:
+  - incident_class
+  - affected_data_and_jurisdictions
+  - internal_owner
+  - notification_decision_authority
+  - contractual_and_legal_deadlines
+  - evidence_location

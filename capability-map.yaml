@@ -1,0 +1,465 @@
+schema_version: 1
+project: agentic-delivery-reference
+policy:
+  statuses:
+    - specified
+    - implemented
+    - verified
+  evidence_rule: "Only verified capabilities may be presented as operational."
+capabilities:
+  - id: product-specification
+    group: product-delivery
+    status: verified
+    module: specs
+    source:
+      - specs/product-spec.md
+      - specs/requirements/functional-requirements.md
+      - specs/requirements/non-functional-requirements.md
+    tests:
+      - specs/acceptance-criteria/v1.md
+      - specs/test-plan/test-plan.md
+    demo: []
+    documentation:
+      - docs/product/discovery.md
+      - docs/product/user-journey.md
+      - docs/product/mvp.md
+      - docs/product/kpis.md
+    evidence:
+      - specs/acceptance-criteria/v1.md
+
+  - id: modular-architecture
+    group: architecture-security-quality
+    status: specified
+    module: apps/services/packages
+    source: []
+    tests:
+      - specs/test-plan/test-plan.md
+    demo: []
+    documentation:
+      - specs/design/system-design.md
+      - docs/architecture/overview.md
+      - docs/adr/0001-modular-monolith.md
+    evidence: []
+
+  - id: api-contracts
+    group: architecture-security-quality
+    status: verified
+    module: packages/contracts
+    source:
+      - packages/contracts/openapi/agentic-delivery-api.json
+    tests:
+      - services/api/tests/test_workflow_api.py
+      - scripts/quality/validate_repository.py
+    demo: []
+    documentation:
+      - specs/design/system-design.md
+    evidence:
+      - evaluations/reports/phase-3-deterministic-runtime.json
+
+  - id: agent-runtime
+    group: agentic-ai
+    status: verified
+    module: services/agent-runtime
+    source:
+      - services/agent-runtime/src/agentic_runtime/graph.py
+      - services/agent-runtime/src/agentic_runtime/models.py
+      - services/agent-runtime/src/agentic_runtime/provider.py
+    tests:
+      - services/agent-runtime/tests/test_graph.py
+      - services/api/tests/test_workflow_api.py
+      - specs/acceptance-criteria/phase-3.md
+    demo:
+      - scripts/demo/phase-3-smoke.ps1
+    documentation:
+      - specs/design/workflow-state-model.md
+      - docs/adr/0004-agent-frameworks-and-ml-runtimes.md
+      - docs/adr/0007-deterministic-langgraph-runtime.md
+      - services/agent-runtime/README.md
+    evidence:
+      - evaluations/reports/phase-3-deterministic-runtime.json
+
+  - id: persistent-workflow-state
+    group: agentic-ai
+    status: specified
+    module: services/agent-runtime/state
+    source: []
+    tests:
+      - specs/test-plan/test-plan.md
+    demo: []
+    documentation:
+      - specs/design/workflow-state-model.md
+      - docs/adr/0003-gcp-deployment-and-persistence.md
+    evidence: []
+
+  - id: grounded-local-rag
+    group: agentic-ai
+    status: verified
+    module: services/agent-runtime/knowledge
+    source:
+      - services/agent-runtime/src/agentic_runtime/knowledge.py
+      - services/agent-runtime/src/agentic_runtime/graph.py
+      - packages/contracts/rag/retrieval-evidence.schema.json
+    tests:
+      - services/agent-runtime/tests/test_graph.py
+      - services/agent-runtime/tests/test_rag_components.py
+      - specs/acceptance-criteria/phase-5.md
+    demo:
+      - scripts/demo/phase-5-smoke.ps1
+    documentation:
+      - docs/adr/0010-local-rag-guardrails-and-evaluation-gates.md
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-5-rag-guardrails-evaluation.json
+
+  - id: deterministic-guardrails
+    group: governance-safety
+    status: verified
+    module: services/agent-runtime/guardrails
+    source:
+      - services/agent-runtime/src/agentic_runtime/guardrails.py
+      - services/agent-runtime/src/agentic_runtime/errors.py
+      - packages/contracts/rag/guardrail-report.schema.json
+    tests:
+      - services/agent-runtime/tests/test_graph.py
+      - services/agent-runtime/tests/test_rag_components.py
+      - services/api/tests/test_workflow_api.py
+    demo:
+      - scripts/demo/phase-5-smoke.ps1
+    documentation:
+      - specs/threat-model/threat-model.md
+      - docs/adr/0010-local-rag-guardrails-and-evaluation-gates.md
+    evidence:
+      - evaluations/reports/phase-5-rag-guardrails-evaluation.json
+
+  - id: deterministic-evaluation-gates
+    group: agentic-sdlc
+    status: verified
+    module: services/evaluator
+    source:
+      - services/agent-runtime/src/agentic_runtime/evaluation.py
+      - services/evaluator/src/agentic_evaluator/golden.py
+      - evaluations/golden-set/deterministic-v1.json
+      - packages/contracts/rag/evaluation-gate-result.schema.json
+    tests:
+      - services/evaluator/tests/test_main.py
+      - services/agent-runtime/tests/test_graph.py
+      - specs/acceptance-criteria/phase-5.md
+    demo:
+      - scripts/evaluation/run-golden-set.ps1
+      - scripts/demo/phase-5-smoke.ps1
+    documentation:
+      - docs/adr/0010-local-rag-guardrails-and-evaluation-gates.md
+      - specs/test-plan/test-plan.md
+    evidence:
+      - evaluations/reports/golden-set-deterministic-v1.json
+      - evaluations/reports/phase-5-rag-guardrails-evaluation.json
+
+  - id: human-approval
+    group: governance-safety
+    status: verified
+    module: services/api
+    source:
+      - services/api/src/agentic_api/execution.py
+      - services/api/src/agentic_api/domain.py
+      - services/api/src/agentic_api/service.py
+      - packages/contracts/execution/tool-action-proposal.schema.json
+      - packages/contracts/execution/approval-decision.schema.json
+      - apps/web-console/src/components/request-console.tsx
+    tests:
+      - services/api/tests/test_approval_domain.py
+      - services/api/tests/test_workflow_api.py
+      - apps/web-console/src/app/page.test.tsx
+      - specs/acceptance-criteria/phase-4.md
+    demo:
+      - scripts/demo/phase-4-smoke.ps1
+    documentation:
+      - specs/design/workflow-state-model.md
+      - specs/threat-model/threat-model.md
+      - docs/adr/0009-human-approval-and-local-task-execution.md
+    evidence:
+      - evaluations/reports/phase-4-human-approval.json
+
+  - id: local-asynchronous-execution
+    group: software-cloud
+    status: verified
+    module: services/api/local-task-boundary
+    source:
+      - services/api/src/agentic_api/adapters.py
+      - services/api/src/agentic_api/ports.py
+      - services/api/src/agentic_api/service.py
+      - packages/contracts/execution/execution-task.schema.json
+      - packages/contracts/execution/tool-execution-result.schema.json
+    tests:
+      - services/api/tests/test_approval_domain.py
+      - services/api/tests/test_workflow_api.py
+    demo:
+      - scripts/demo/phase-4-smoke.ps1
+      - scripts/demo/containerized-smoke.ps1
+    documentation:
+      - docs/adr/0009-human-approval-and-local-task-execution.md
+    evidence:
+      - evaluations/reports/phase-4-human-approval.json
+
+  - id: integration-isolation
+    group: integrations
+    status: specified
+    module: integrations
+    source: []
+    tests:
+      - specs/test-plan/test-plan.md
+    demo: []
+    documentation:
+      - docs/adr/0002-ports-and-simulated-adapters.md
+    evidence: []
+
+  - id: secure-by-design-delivery
+    group: architecture-security-quality
+    status: verified
+    module: services/api/security
+    source:
+      - services/api/src/agentic_api/security.py
+      - services/api/src/agentic_api/operational.py
+      - services/api/src/agentic_api/main.py
+      - evaluations/red-team/deterministic-v1.json
+    tests:
+      - services/api/tests/test_security_hardening.py
+      - services/api/tests/test_workflow_api.py
+      - specs/acceptance-criteria/phase-6.md
+    demo:
+      - scripts/security/run-red-team.ps1
+      - scripts/demo/phase-6-smoke.ps1
+    documentation:
+      - specs/threat-model/threat-model.md
+      - docs/adr/0011-local-security-and-operational-hardening.md
+    evidence:
+      - evaluations/reports/red-team-deterministic-v1.json
+      - evaluations/reports/phase-6-security-operational-hardening.json
+
+  - id: sanitized-operational-observability
+    group: architecture-security-quality
+    status: verified
+    module: services/api/operations
+    source:
+      - services/api/src/agentic_api/operational.py
+      - services/api/src/agentic_api/adapters.py
+      - services/api/src/agentic_api/dto.py
+      - packages/contracts/operations/readiness.schema.json
+      - packages/contracts/operations/operational-metrics.schema.json
+      - packages/contracts/operations/audit-events.schema.json
+    tests:
+      - services/api/tests/test_security_hardening.py
+      - specs/acceptance-criteria/phase-6.md
+    demo:
+      - scripts/demo/phase-6-smoke.ps1
+      - scripts/demo/containerized-smoke.ps1
+    documentation:
+      - docs/adr/0011-local-security-and-operational-hardening.md
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-6-security-operational-hardening.json
+
+  - id: project-foundation
+    group: agentic-sdlc
+    status: verified
+    module: repository-root
+    source:
+      - pyproject.toml
+      - package.json
+      - pnpm-workspace.yaml
+      - .editorconfig
+    tests:
+      - scripts/quality/validate_repository.py
+      - specs/acceptance-criteria/phase-1.md
+    demo:
+      - scripts/demo/foundation-smoke.ps1
+    documentation:
+      - README.md
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-1-foundation.json
+
+  - id: web-console
+    group: software-cloud
+    status: verified
+    module: apps/web-console
+    source:
+      - apps/web-console/src/app/page.tsx
+      - apps/web-console/src/app/layout.tsx
+      - apps/web-console/src/lib/project-metadata.ts
+    tests:
+      - apps/web-console/src/app/page.test.tsx
+    demo:
+      - scripts/demo/foundation-smoke.ps1
+    documentation:
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-1-foundation.json
+
+  - id: backend-api-foundation
+    group: software-cloud
+    status: verified
+    module: services/api
+    source:
+      - services/api/src/agentic_api/main.py
+      - services/api/src/agentic_api/config.py
+    tests:
+      - services/api/tests/test_api_health.py
+      - services/api/tests/test_config.py
+    demo:
+      - scripts/demo/foundation-smoke.ps1
+    documentation:
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-1-foundation.json
+
+  - id: background-worker-foundation
+    group: software-cloud
+    status: verified
+    module: services/background-worker
+    source:
+      - services/background-worker/src/agentic_worker/main.py
+    tests:
+      - services/background-worker/tests/test_worker_health.py
+    demo:
+      - scripts/demo/foundation-smoke.ps1
+    documentation:
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-1-foundation.json
+
+  - id: evaluator-foundation
+    group: software-cloud
+    status: verified
+    module: services/evaluator
+    source:
+      - services/evaluator/src/agentic_evaluator/main.py
+    tests:
+      - services/evaluator/tests/test_main.py
+    demo:
+      - scripts/demo/foundation-smoke.ps1
+    documentation:
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-1-foundation.json
+
+  - id: containerized-local-environment
+    group: software-cloud
+    status: verified
+    module: infra/local
+    source:
+      - docker-compose.yml
+      - infra/docker/python.Dockerfile
+      - apps/web-console/Dockerfile
+    tests:
+      - scripts/quality/validate_repository.py
+    demo:
+      - scripts/demo/containerized-smoke.ps1
+    documentation:
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/containerized-local-validation.json
+
+  - id: continuous-integration-foundation
+    group: agentic-sdlc
+    status: implemented
+    module: .github/workflows
+    source:
+      - .github/workflows/ci.yml
+    tests:
+      - scripts/quality/check.ps1
+    demo: []
+    documentation:
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-1-foundation.json
+
+  - id: authenticated-web-api-slice
+    group: architecture-security-quality
+    status: verified
+    module: apps/web-console/services/api
+    source:
+      - services/api/src/agentic_api/domain.py
+      - services/api/src/agentic_api/security.py
+      - services/api/src/agentic_api/service.py
+      - services/api/src/agentic_api/adapters.py
+      - services/api/src/agentic_api/main.py
+      - apps/web-console/src/components/request-console.tsx
+    tests:
+      - services/api/tests/test_workflow_api.py
+      - services/api/tests/test_domain_and_adapters.py
+      - apps/web-console/src/app/page.test.tsx
+      - specs/acceptance-criteria/phase-2.md
+    demo:
+      - scripts/demo/phase-2-smoke.ps1
+    documentation:
+      - docs/adr/0006-local-identity-and-state.md
+      - docs/runbooks/local-development.md
+    evidence:
+      - evaluations/reports/phase-2-authenticated-slice.json
+
+  - id: data-protection-control-plane
+    group: governance-safety
+    status: verified
+    module: packages/governance-core
+    source:
+      - packages/governance-core/src/agentic_governance/classifier.py
+      - packages/governance-core/src/agentic_governance/models.py
+      - packages/governance-core/src/agentic_governance/policy.py
+      - packages/contracts/governance/processing-context.schema.json
+      - packages/contracts/governance/policy-decision.schema.json
+      - services/api/src/agentic_api/service.py
+      - policies/baseline/common-us-v1.yaml
+    tests:
+      - packages/governance-core/tests/test_classifier.py
+      - packages/governance-core/tests/test_policy.py
+      - services/api/tests/test_workflow_api.py
+      - specs/acceptance-criteria/phase-3-5.md
+    demo:
+      - scripts/demo/phase-3-5-smoke.ps1
+    documentation:
+      - docs/adr/0008-data-protection-control-plane.md
+      - docs/compliance/README.md
+      - docs/compliance/applicability-matrix.yaml
+    evidence:
+      - evaluations/reports/phase-3-5-data-protection.json
+
+  - id: gcp-plan-only-infrastructure
+    group: software-cloud
+    status: verified
+    module: infra/terraform/gcp-platform
+    source:
+      - infra/terraform/gcp-platform/versions.tf
+      - infra/terraform/gcp-platform/variables.tf
+      - infra/terraform/gcp-platform/main.tf
+      - infra/terraform/gcp-platform/outputs.tf
+      - services/api/src/agentic_api/cloud_config.py
+    tests:
+      - services/api/tests/test_cloud_config.py
+      - scripts/infra/validate_gcp_readiness.py
+      - specs/acceptance-criteria/phase-7.md
+    demo:
+      - scripts/demo/phase-7-smoke.ps1
+    documentation:
+      - docs/adr/0012-gcp-plan-only-deployment-readiness.md
+      - docs/runbooks/gcp-plan-only.md
+    evidence:
+      - evaluations/reports/phase-7-gcp-deployment-readiness.json
+
+  - id: keyless-manual-delivery
+    group: agentic-sdlc
+    status: verified
+    module: .github/workflows
+    source:
+      - .github/workflows/ci.yml
+      - .github/workflows/deploy-gcp.yml
+      - scripts/deploy/plan-gcp.ps1
+      - scripts/deploy/deploy-gcp.ps1
+    tests:
+      - scripts/infra/validate_gcp_readiness.py
+      - specs/acceptance-criteria/phase-7.md
+    demo:
+      - scripts/demo/phase-7-smoke.ps1
+    documentation:
+      - docs/runbooks/gcp-plan-only.md
+    evidence:
+      - evaluations/reports/phase-7-gcp-deployment-readiness.json

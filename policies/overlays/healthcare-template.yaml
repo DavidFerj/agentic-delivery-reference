@@ -1,0 +1,7 @@
+schemaVersion: 1
+id: healthcare-template
+enabled: false
+status: requires_legal_review
+candidateData: [health_information]
+candidateSources: [HIPAA, "42 CFR Part 2", "state health privacy laws"]
+requiredDecisions: [applicability, covered_entity_role, approved_vendors, emergency_access, retention, breach_process]

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "phase": "phase-1-project-foundation",
+  "executedAt": "2026-08-03",
+  "environment": {
+    "operatingSystem": "Windows",
+    "node": "24.18.0",
+    "pnpm": "11.9.0",
+    "python": "3.14.6",
+    "dockerAvailable": false
+  },
+  "results": {
+    "pythonFormat": "passed",
+    "pythonLint": "passed",
+    "pythonTypeCheck": "passed",
+    "pythonTests": {
+      "status": "passed",
+      "tests": 11,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "webLint": "passed",
+    "webTypeCheck": "passed",
+    "webTests": {
+      "status": "passed",
+      "tests": 1,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "webProductionBuild": "passed",
+    "pythonDependencyAudit": "passed-no-known-vulnerabilities",
+    "javascriptDependencyAudit": "passed-no-known-vulnerabilities",
+    "repositoryValidation": "passed",
+    "nativeFoundationSmoke": {
+      "status": "passed",
+      "services": ["web", "api", "background-worker", "evaluator"]
+    },
+    "dockerComposeExecution": {
+      "status": "not-run",
+      "reason": "Docker is not installed on the development machine. Compose structure was validated by the repository validator."
+    },
+    "githubActionsExecution": {
+      "status": "not-run",
+      "reason": "The repository remains local and has no remote by product-owner request."
+    }
+  },
+  "externalIntegrations": {
+    "n8n": "disabled",
+    "vapi": "disabled",
+    "mcp": "disabled",
+    "realModelProvider": "not-installed"
+  }
+}

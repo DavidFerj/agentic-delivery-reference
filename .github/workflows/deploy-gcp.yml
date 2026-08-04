@@ -1,0 +1,105 @@
+name: Deploy GCP
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Non-production target environment
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+      confirmation:
+        description: Enter DEPLOY-development or DEPLOY-staging
+        required: true
+        type: string
+      execute:
+        description: Build, push, plan, and apply
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-gcp-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: inputs.execute && inputs.confirmation == format('DEPLOY-{0}', inputs.environment)
+    name: Deploy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Authenticate with keyless GitHub OIDC
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOYER_SERVICE_ACCOUNT }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.13.5"
+
+      - name: Configure Artifact Registry authentication
+        run: gcloud auth configure-docker "${{ vars.GCP_REGION }}-docker.pkg.dev" --quiet
+
+      - name: Build and push immutable runtime image
+        id: runtime
+        env:
+          IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/agentic-containers/runtime
+        run: |
+          docker build --file infra/docker/python.Dockerfile --tag "$IMAGE:${GITHUB_SHA}" .
+          docker push "$IMAGE:${GITHUB_SHA}"
+          DIGEST=$(gcloud artifacts docker images describe "$IMAGE:${GITHUB_SHA}" --format='value(image_summary.digest)')
+          echo "uri=$IMAGE@$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push immutable web image
+        id: web
+        env:
+          IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/agentic-containers/web
+        run: |
+          docker build --file apps/web-console/Dockerfile --tag "$IMAGE:${GITHUB_SHA}" .
+          docker push "$IMAGE:${GITHUB_SHA}"
+          DIGEST=$(gcloud artifacts docker images describe "$IMAGE:${GITHUB_SHA}" --format='value(image_summary.digest)')
+          echo "uri=$IMAGE@$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Initialize remote state
+        working-directory: infra/terraform/gcp-platform
+        run: |
+          cp backend.gcs.tf.example backend.tf
+          terraform init -input=false \
+            -backend-config="bucket=${{ vars.GCP_TERRAFORM_STATE_BUCKET }}" \
+            -backend-config="prefix=agentic-delivery-reference/${{ inputs.environment }}"
+
+      - name: Plan exact deployment
+        working-directory: infra/terraform/gcp-platform
+        run: >-
+          terraform plan -input=false -refresh=false
+          -var="project_id=${{ vars.GCP_PROJECT_ID }}"
+          -var="project_number=${{ vars.GCP_PROJECT_NUMBER }}"
+          -var="environment=${{ inputs.environment }}"
+          -var="region=${{ vars.GCP_REGION }}"
+          -var="github_repository=${{ github.repository }}"
+          -var="web_image=${{ steps.web.outputs.uri }}"
+          -var="api_image=${{ steps.runtime.outputs.uri }}"
+          -var="worker_image=${{ steps.runtime.outputs.uri }}"
+          -var="evaluator_image=${{ steps.runtime.outputs.uri }}"
+          -var="runtime_adapters_ready=true"
+          -var="allow_resource_creation=true"
+          -out=deployment.tfplan
+
+      - name: Apply reviewed plan
+        working-directory: infra/terraform/gcp-platform
+        run: terraform apply -input=false deployment.tfplan

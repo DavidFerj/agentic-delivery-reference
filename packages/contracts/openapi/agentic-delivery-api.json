@@ -1,0 +1,1899 @@
+{
+  "components": {
+    "schemas": {
+      "ApprovalDecision": {
+        "additionalProperties": false,
+        "properties": {
+          "consumedAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consumedat"
+          },
+          "decidedAt": {
+            "format": "date-time",
+            "title": "Decidedat",
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "approved",
+              "rejected"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "decisionId": {
+            "title": "Decisionid",
+            "type": "string"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "title": "Expiresat",
+            "type": "string"
+          },
+          "proposalDigest": {
+            "title": "Proposaldigest",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "reviewerId": {
+            "title": "Reviewerid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "decisionId",
+          "decision",
+          "reviewerId",
+          "reason",
+          "decidedAt",
+          "expiresAt",
+          "proposalDigest"
+        ],
+        "title": "ApprovalDecision",
+        "type": "object"
+      },
+      "ApprovalRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "enum": [
+              "approved",
+              "rejected"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "decision",
+          "reason"
+        ],
+        "title": "ApprovalRequest",
+        "type": "object"
+      },
+      "AuditEventResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "actor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor"
+          },
+          "correlationId": {
+            "title": "Correlationid",
+            "type": "string"
+          },
+          "decision": {
+            "title": "Decision",
+            "type": "string"
+          },
+          "eventId": {
+            "title": "Eventid",
+            "type": "string"
+          },
+          "occurredAt": {
+            "format": "date-time",
+            "title": "Occurredat",
+            "type": "string"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "type": "string"
+          },
+          "resourceId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resourceid"
+          }
+        },
+        "required": [
+          "eventId",
+          "occurredAt",
+          "actor",
+          "action",
+          "resourceId",
+          "decision",
+          "outcome",
+          "correlationId"
+        ],
+        "title": "AuditEventResponse",
+        "type": "object"
+      },
+      "AuditEventsResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEventResponse"
+            },
+            "title": "Events",
+            "type": "array"
+          }
+        },
+        "required": [
+          "events"
+        ],
+        "title": "AuditEventsResponse",
+        "type": "object"
+      },
+      "Citation": {
+        "additionalProperties": false,
+        "properties": {
+          "documentId": {
+            "title": "Documentid",
+            "type": "string"
+          },
+          "excerptHash": {
+            "title": "Excerpthash",
+            "type": "string"
+          },
+          "relevanceScore": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Relevancescore",
+            "type": "number"
+          },
+          "section": {
+            "title": "Section",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "documentId",
+          "title",
+          "section",
+          "version",
+          "excerptHash",
+          "relevanceScore"
+        ],
+        "title": "Citation",
+        "type": "object"
+      },
+      "Classification": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "general",
+              "integration",
+              "security",
+              "data"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "complexity": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Complexity",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "complexity",
+          "reason"
+        ],
+        "title": "Classification",
+        "type": "object"
+      },
+      "CreateServiceRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "dataContext": {
+            "$ref": "#/components/schemas/DataContextRequest"
+          },
+          "request": {
+            "maxLength": 10000,
+            "minLength": 10,
+            "title": "Request",
+            "type": "string"
+          },
+          "requestedLocale": {
+            "default": "en",
+            "maxLength": 35,
+            "title": "Requestedlocale",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request"
+        ],
+        "title": "CreateServiceRequest",
+        "type": "object"
+      },
+      "DataCategory": {
+        "enum": [
+          "general_content",
+          "contact_information",
+          "health_information",
+          "financial_information",
+          "payment_card_data",
+          "credentials",
+          "biometric_information",
+          "childrens_data",
+          "education_records",
+          "government_data"
+        ],
+        "title": "DataCategory",
+        "type": "string"
+      },
+      "DataClassification": {
+        "enum": [
+          "internal",
+          "confidential",
+          "restricted_personal_data",
+          "regulated_high_impact_data"
+        ],
+        "title": "DataClassification",
+        "type": "string"
+      },
+      "DataContextRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "declaredCategories": {
+            "items": {
+              "$ref": "#/components/schemas/DataCategory"
+            },
+            "title": "Declaredcategories",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "jurisdiction": {
+            "default": "US",
+            "maxLength": 35,
+            "minLength": 2,
+            "pattern": "^[A-Z-]+$",
+            "title": "Jurisdiction",
+            "type": "string"
+          },
+          "overlayIds": {
+            "default": [
+              "common-us-baseline"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Overlayids",
+            "type": "array"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/ProcessingPurpose",
+            "default": "delivery_planning"
+          }
+        },
+        "title": "DataContextRequest",
+        "type": "object"
+      },
+      "DataProfile": {
+        "additionalProperties": false,
+        "properties": {
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/DataCategory"
+            },
+            "title": "Categories",
+            "type": "array"
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "detectionBasis": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Detectionbasis",
+            "type": "array"
+          }
+        },
+        "required": [
+          "classification",
+          "categories",
+          "detectionBasis"
+        ],
+        "title": "DataProfile",
+        "type": "object"
+      },
+      "EnforcementMode": {
+        "enum": [
+          "observe",
+          "warn",
+          "enforce"
+        ],
+        "title": "EnforcementMode",
+        "type": "string"
+      },
+      "EvaluationCheck": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "passed"
+        ],
+        "title": "EvaluationCheck",
+        "type": "object"
+      },
+      "EvaluationGateResult": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "items": {
+              "$ref": "#/components/schemas/EvaluationCheck"
+            },
+            "title": "Checks",
+            "type": "array"
+          },
+          "gateVersion": {
+            "title": "Gateversion",
+            "type": "string"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "score": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "type": "number"
+          },
+          "threshold": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Threshold",
+            "type": "number"
+          }
+        },
+        "required": [
+          "gateVersion",
+          "passed",
+          "score",
+          "threshold",
+          "checks"
+        ],
+        "title": "EvaluationGateResult",
+        "type": "object"
+      },
+      "ExecutionMetrics": {
+        "additionalProperties": false,
+        "properties": {
+          "estimatedCostUsd": {
+            "default": 0.0,
+            "maximum": 0.0,
+            "minimum": 0.0,
+            "title": "Estimatedcostusd",
+            "type": "number"
+          },
+          "estimatedInputTokens": {
+            "minimum": 0.0,
+            "title": "Estimatedinputtokens",
+            "type": "integer"
+          },
+          "estimatedOutputTokens": {
+            "minimum": 0.0,
+            "title": "Estimatedoutputtokens",
+            "type": "integer"
+          },
+          "latencyMs": {
+            "const": 0,
+            "default": 0,
+            "title": "Latencyms",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "estimatedInputTokens",
+          "estimatedOutputTokens"
+        ],
+        "title": "ExecutionMetrics",
+        "type": "object"
+      },
+      "GuardrailReport": {
+        "additionalProperties": false,
+        "properties": {
+          "inputOutcome": {
+            "const": "passed",
+            "default": "passed",
+            "title": "Inputoutcome",
+            "type": "string"
+          },
+          "outputOutcome": {
+            "const": "passed",
+            "default": "passed",
+            "title": "Outputoutcome",
+            "type": "string"
+          },
+          "policyVersion": {
+            "title": "Policyversion",
+            "type": "string"
+          },
+          "retrievalOutcome": {
+            "enum": [
+              "passed",
+              "filtered"
+            ],
+            "title": "Retrievaloutcome",
+            "type": "string"
+          }
+        },
+        "required": [
+          "policyVersion",
+          "retrievalOutcome"
+        ],
+        "title": "GuardrailReport",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "additionalProperties": false,
+        "description": "Public liveness response with no dependency or secret detail.",
+        "properties": {
+          "environment": {
+            "title": "Environment",
+            "type": "string"
+          },
+          "service": {
+            "const": "api",
+            "default": "api",
+            "title": "Service",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "environment"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "ImplementationProposal": {
+        "additionalProperties": false,
+        "properties": {
+          "complexity": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Complexity",
+            "type": "string"
+          },
+          "deliverySteps": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Deliverysteps",
+            "type": "array"
+          },
+          "risks": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Risks",
+            "type": "array"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "complexity",
+          "deliverySteps",
+          "risks"
+        ],
+        "title": "ImplementationProposal",
+        "type": "object"
+      },
+      "ModelPolicy": {
+        "additionalProperties": false,
+        "properties": {
+          "model": {
+            "const": "rules-v1",
+            "default": "rules-v1",
+            "title": "Model",
+            "type": "string"
+          },
+          "provider": {
+            "const": "deterministic-local",
+            "default": "deterministic-local",
+            "title": "Provider",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "title": "ModelPolicy",
+        "type": "object"
+      },
+      "Obligation": {
+        "enum": [
+          "audit_decision",
+          "purpose_limitation",
+          "data_minimization",
+          "redact_before_external_processing",
+          "local_processing_only",
+          "no_provider_training",
+          "human_approval_for_side_effects",
+          "enhanced_access_logging"
+        ],
+        "title": "Obligation",
+        "type": "string"
+      },
+      "OperationalMetricsResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "averageDurationMs": {
+            "title": "Averagedurationms",
+            "type": "number"
+          },
+          "errorRequests": {
+            "title": "Errorrequests",
+            "type": "integer"
+          },
+          "recentRequests": {
+            "items": {
+              "$ref": "#/components/schemas/RequestObservationResponse"
+            },
+            "title": "Recentrequests",
+            "type": "array"
+          },
+          "routeCounts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Routecounts",
+            "type": "object"
+          },
+          "statusCounts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Statuscounts",
+            "type": "object"
+          },
+          "totalRequests": {
+            "title": "Totalrequests",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "totalRequests",
+          "errorRequests",
+          "averageDurationMs",
+          "statusCounts",
+          "routeCounts",
+          "recentRequests"
+        ],
+        "title": "OperationalMetricsResponse",
+        "type": "object"
+      },
+      "PolicyDecision": {
+        "additionalProperties": false,
+        "properties": {
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "decisionId": {
+            "title": "Decisionid",
+            "type": "string"
+          },
+          "enforcementMode": {
+            "$ref": "#/components/schemas/EnforcementMode"
+          },
+          "executionAllowed": {
+            "title": "Executionallowed",
+            "type": "boolean"
+          },
+          "obligations": {
+            "items": {
+              "$ref": "#/components/schemas/Obligation"
+            },
+            "title": "Obligations",
+            "type": "array"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/PolicyOutcome"
+          },
+          "overlayIds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Overlayids",
+            "type": "array"
+          },
+          "policyVersion": {
+            "title": "Policyversion",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "retentionPolicy": {
+            "title": "Retentionpolicy",
+            "type": "string"
+          }
+        },
+        "required": [
+          "decisionId",
+          "policyVersion",
+          "outcome",
+          "executionAllowed",
+          "enforcementMode",
+          "classification",
+          "obligations",
+          "reasons",
+          "retentionPolicy",
+          "overlayIds"
+        ],
+        "title": "PolicyDecision",
+        "type": "object"
+      },
+      "PolicyOutcome": {
+        "enum": [
+          "permit",
+          "permit_with_controls",
+          "deny"
+        ],
+        "title": "PolicyOutcome",
+        "type": "string"
+      },
+      "ProcessingContext": {
+        "additionalProperties": false,
+        "properties": {
+          "dataProfile": {
+            "$ref": "#/components/schemas/DataProfile"
+          },
+          "jurisdiction": {
+            "default": "US",
+            "title": "Jurisdiction",
+            "type": "string"
+          },
+          "operation": {
+            "$ref": "#/components/schemas/ProcessingOperation"
+          },
+          "overlayIds": {
+            "default": [
+              "common-us-baseline"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "title": "Overlayids",
+            "type": "array"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/ProcessingPurpose"
+          },
+          "subjectId": {
+            "title": "Subjectid",
+            "type": "string"
+          },
+          "tenantId": {
+            "default": "local-reference",
+            "title": "Tenantid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "subjectId",
+          "purpose",
+          "operation",
+          "provider",
+          "dataProfile"
+        ],
+        "title": "ProcessingContext",
+        "type": "object"
+      },
+      "ProcessingOperation": {
+        "enum": [
+          "workflow_intake",
+          "agent_planning",
+          "external_model_inference",
+          "knowledge_retrieval",
+          "tool_execution"
+        ],
+        "title": "ProcessingOperation",
+        "type": "string"
+      },
+      "ProcessingPurpose": {
+        "enum": [
+          "delivery_planning"
+        ],
+        "title": "ProcessingPurpose",
+        "type": "string"
+      },
+      "ReadinessResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "additionalProperties": {
+              "const": "ready",
+              "type": "string"
+            },
+            "title": "Checks",
+            "type": "object"
+          },
+          "service": {
+            "const": "api",
+            "default": "api",
+            "title": "Service",
+            "type": "string"
+          },
+          "status": {
+            "const": "ready",
+            "default": "ready",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "checks"
+        ],
+        "title": "ReadinessResponse",
+        "type": "object"
+      },
+      "RequestObservationResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "correlationId": {
+            "title": "Correlationid",
+            "type": "string"
+          },
+          "durationMs": {
+            "title": "Durationms",
+            "type": "number"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "occurredAt": {
+            "format": "date-time",
+            "title": "Occurredat",
+            "type": "string"
+          },
+          "route": {
+            "title": "Route",
+            "type": "string"
+          },
+          "statusCode": {
+            "title": "Statuscode",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "occurredAt",
+          "method",
+          "route",
+          "statusCode",
+          "durationMs",
+          "correlationId"
+        ],
+        "title": "RequestObservationResponse",
+        "type": "object"
+      },
+      "RetrievalEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "corpusVersion": {
+            "title": "Corpusversion",
+            "type": "string"
+          },
+          "quarantinedDocumentIds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quarantineddocumentids",
+            "type": "array"
+          },
+          "selectedDocumentIds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Selecteddocumentids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "corpusVersion",
+          "selectedDocumentIds",
+          "quarantinedDocumentIds"
+        ],
+        "title": "RetrievalEvidence",
+        "type": "object"
+      },
+      "SessionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "displayName": {
+            "title": "Displayname",
+            "type": "string"
+          },
+          "roles": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Roles",
+            "type": "array"
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string"
+          }
+        },
+        "required": [
+          "subject",
+          "displayName",
+          "roles"
+        ],
+        "title": "SessionResponse",
+        "type": "object"
+      },
+      "StateTransitionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "actorType": {
+            "title": "Actortype",
+            "type": "string"
+          },
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "from": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From"
+          },
+          "to": {
+            "title": "To",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "at",
+          "actorType"
+        ],
+        "title": "StateTransitionResponse",
+        "type": "object"
+      },
+      "TicketArguments": {
+        "additionalProperties": false,
+        "properties": {
+          "complexity": {
+            "title": "Complexity",
+            "type": "string"
+          },
+          "deliverySteps": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Deliverysteps",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "workflowId": {
+            "title": "Workflowid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workflowId",
+          "title",
+          "complexity",
+          "deliverySteps"
+        ],
+        "title": "TicketArguments",
+        "type": "object"
+      },
+      "ToolActionProposal": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "const": "create_delivery_ticket",
+            "default": "create_delivery_ticket",
+            "title": "Action",
+            "type": "string"
+          },
+          "arguments": {
+            "$ref": "#/components/schemas/TicketArguments"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "title": "Expiresat",
+            "type": "string"
+          },
+          "proposalDigest": {
+            "title": "Proposaldigest",
+            "type": "string"
+          },
+          "proposalId": {
+            "title": "Proposalid",
+            "type": "string"
+          },
+          "schemaHash": {
+            "title": "Schemahash",
+            "type": "string"
+          }
+        },
+        "required": [
+          "proposalId",
+          "arguments",
+          "schemaHash",
+          "proposalDigest",
+          "expiresAt"
+        ],
+        "title": "ToolActionProposal",
+        "type": "object"
+      },
+      "ToolExecutionResult": {
+        "additionalProperties": false,
+        "properties": {
+          "executedAt": {
+            "format": "date-time",
+            "title": "Executedat",
+            "type": "string"
+          },
+          "executionId": {
+            "title": "Executionid",
+            "type": "string"
+          },
+          "proposalDigest": {
+            "title": "Proposaldigest",
+            "type": "string"
+          },
+          "simulated": {
+            "const": true,
+            "default": true,
+            "title": "Simulated",
+            "type": "boolean"
+          },
+          "status": {
+            "const": "created",
+            "default": "created",
+            "title": "Status",
+            "type": "string"
+          },
+          "ticketId": {
+            "title": "Ticketid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "executionId",
+          "ticketId",
+          "executedAt",
+          "proposalDigest"
+        ],
+        "title": "ToolExecutionResult",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "WorkflowResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "actionProposal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ToolActionProposal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "approvalDecision": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApprovalDecision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "citations": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Citation"
+            },
+            "title": "Citations",
+            "type": "array"
+          },
+          "classification": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Classification"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "correlationId": {
+            "title": "Correlationid",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "evaluation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EvaluationGateResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "executionResult": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ToolExecutionResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "governanceDecisions": {
+            "items": {
+              "$ref": "#/components/schemas/PolicyDecision"
+            },
+            "title": "Governancedecisions",
+            "type": "array"
+          },
+          "guardrails": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GuardrailReport"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExecutionMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "modelPolicy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelPolicy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "processingContext": {
+            "$ref": "#/components/schemas/ProcessingContext"
+          },
+          "proposal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImplementationProposal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "request": {
+            "title": "Request",
+            "type": "string"
+          },
+          "requestedLocale": {
+            "title": "Requestedlocale",
+            "type": "string"
+          },
+          "retrieval": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetrievalEvidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "stateVersion": {
+            "title": "Stateversion",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "received",
+              "awaiting_approval",
+              "approved",
+              "rejected",
+              "expired",
+              "executing",
+              "completed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "transitions": {
+            "items": {
+              "$ref": "#/components/schemas/StateTransitionResponse"
+            },
+            "title": "Transitions",
+            "type": "array"
+          },
+          "workflowId": {
+            "title": "Workflowid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workflowId",
+          "status",
+          "stateVersion",
+          "createdAt",
+          "correlationId",
+          "request",
+          "requestedLocale",
+          "transitions",
+          "processingContext",
+          "governanceDecisions"
+        ],
+        "title": "WorkflowResponse",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Agentic Delivery Reference API",
+    "version": "0.6.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Report process liveness",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/ready": {
+      "get": {
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Report local component readiness",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/v1/local/tasks/process-next": {
+      "post": {
+        "operationId": "process_next_local_task_v1_local_tasks_process_next_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Process Next Local Task",
+        "tags": [
+          "local-worker"
+        ]
+      }
+    },
+    "/v1/operations/audit-events": {
+      "get": {
+        "operationId": "audit_events_v1_operations_audit_events_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditEventsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Audit Events",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/v1/operations/metrics": {
+      "get": {
+        "operationId": "operational_metrics_v1_operations_metrics_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationalMetricsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Operational Metrics",
+        "tags": [
+          "operations"
+        ]
+      }
+    },
+    "/v1/service-requests": {
+      "post": {
+        "operationId": "create_service_request_v1_service_requests_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateServiceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Service Request",
+        "tags": [
+          "workflows"
+        ]
+      }
+    },
+    "/v1/session": {
+      "get": {
+        "operationId": "session_v1_session_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Session",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/workflows/{workflow_id}": {
+      "get": {
+        "operationId": "get_workflow_v1_workflows__workflow_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workflow_id",
+            "required": true,
+            "schema": {
+              "title": "Workflow Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Workflow",
+        "tags": [
+          "workflows"
+        ]
+      }
+    },
+    "/v1/workflows/{workflow_id}/approval": {
+      "post": {
+        "operationId": "decide_workflow_approval_v1_workflows__workflow_id__approval_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workflow_id",
+            "required": true,
+            "schema": {
+              "title": "Workflow Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Decide Workflow Approval",
+        "tags": [
+          "approvals"
+        ]
+      }
+    },
+    "/v1/workflows/{workflow_id}/plan": {
+      "post": {
+        "operationId": "plan_workflow_v1_workflows__workflow_id__plan_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workflow_id",
+            "required": true,
+            "schema": {
+              "title": "Workflow Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Correlation-ID",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Correlation-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Plan Workflow",
+        "tags": [
+          "workflows"
+        ]
+      }
+    }
+  }
+}

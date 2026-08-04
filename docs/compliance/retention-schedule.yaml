@@ -1,0 +1,9 @@
+schemaVersion: 1
+policies:
+  standard-90-days:
+    durationDays: 90
+    deletionAutomation: not_implemented
+  restricted-30-days:
+    durationDays: 30
+    deletionAutomation: not_implemented
+note: Runtime decisions select a policy; durable storage and deletion execution are future controls.

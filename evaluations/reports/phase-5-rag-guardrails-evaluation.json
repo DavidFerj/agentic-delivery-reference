@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "phase": "5",
+  "executedAt": "2026-08-04",
+  "capabilities": [
+    "grounded-local-rag",
+    "deterministic-guardrails",
+    "deterministic-evaluation-gates"
+  ],
+  "results": {
+    "pythonTests": {
+      "status": "passed",
+      "tests": 89,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "webTests": {
+      "status": "passed",
+      "tests": 8,
+      "statementCoveragePercent": 100,
+      "branchCoveragePercent": 100
+    },
+    "pythonLint": "passed",
+    "pythonTypeCheck": "passed",
+    "webLint": "passed",
+    "webTypeCheck": "passed",
+    "webProductionBuild": "passed",
+    "goldenSetPassRate": 1.0,
+    "nativeSmoke": "passed",
+    "containerizedSmoke": "passed"
+  },
+  "verifiedBehavior": [
+    "versioned deterministic retrieval with cited passage hashes",
+    "retrieved prompt-injection content quarantine",
+    "user prompt-injection blocking before provider invocation",
+    "structured output, grounding, citation integrity, and output-safety gate",
+    "tool proposal creation only after a passing evaluation",
+    "normal and adversarial golden-set release gate"
+  ],
+  "externalCallsPerformed": false,
+  "limitations": [
+    "retrieval is lexical over a small synthetic in-process corpus",
+    "guardrails use narrow deterministic patterns and are not a comprehensive jailbreak defense",
+    "evaluation is rules-based and does not use semantic scoring or an LLM as judge",
+    "no embedding provider, vector database, external model, or remote integration is connected"
+  ]
+}

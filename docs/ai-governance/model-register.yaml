@@ -1,0 +1,9 @@
+schemaVersion: 1
+models:
+  - id: deterministic-local/rules-v1
+    provider: deterministic-local
+    external: false
+    trainingUse: false
+    dataClassesAllowed: [internal, confidential, restricted_personal_data, regulated_high_impact_data]
+    status: active_local_reference
+externalModels: []

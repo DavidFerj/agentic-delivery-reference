@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "version": "deterministic-red-team-v1",
+  "cases": [
+    { "id": "anonymous-access", "expectedOutcome": "401_denied" },
+    { "id": "broken-role-access", "expectedOutcome": "403_denied_and_audited" },
+    { "id": "invalid-correlation", "expectedOutcome": "400_rejected_before_route" },
+    { "id": "oversized-input", "expectedOutcome": "422_no_workflow" },
+    { "id": "prompt-injection", "expectedOutcome": "422_no_tool_proposal" },
+    { "id": "rate-abuse", "expectedOutcome": "429_per_principal" },
+    { "id": "sensitive-telemetry", "expectedOutcome": "redacted_or_absent" }
+  ],
+  "test": "services/api/tests/test_security_hardening.py"
+}

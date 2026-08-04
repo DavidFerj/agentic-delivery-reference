@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "deliveryAttempt": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Deliveryattempt",
+      "type": "integer"
+    },
+    "idempotencyKey": {
+      "title": "Idempotencykey",
+      "type": "string"
+    },
+    "proposalDigest": {
+      "title": "Proposaldigest",
+      "type": "string"
+    },
+    "taskId": {
+      "title": "Taskid",
+      "type": "string"
+    },
+    "workflowId": {
+      "title": "Workflowid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "taskId",
+    "workflowId",
+    "proposalDigest",
+    "idempotencyKey"
+  ],
+  "title": "ExecutionTask",
+  "type": "object"
+}

@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "DataCategory": {
+      "enum": [
+        "general_content",
+        "contact_information",
+        "health_information",
+        "financial_information",
+        "payment_card_data",
+        "credentials",
+        "biometric_information",
+        "childrens_data",
+        "education_records",
+        "government_data"
+      ],
+      "title": "DataCategory",
+      "type": "string"
+    },
+    "DataClassification": {
+      "enum": [
+        "internal",
+        "confidential",
+        "restricted_personal_data",
+        "regulated_high_impact_data"
+      ],
+      "title": "DataClassification",
+      "type": "string"
+    },
+    "DataProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "categories": {
+          "items": {
+            "$ref": "#/$defs/DataCategory"
+          },
+          "title": "Categories",
+          "type": "array"
+        },
+        "classification": {
+          "$ref": "#/$defs/DataClassification"
+        },
+        "detectionBasis": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Detectionbasis",
+          "type": "array"
+        }
+      },
+      "required": [
+        "classification",
+        "categories",
+        "detectionBasis"
+      ],
+      "title": "DataProfile",
+      "type": "object"
+    },
+    "ProcessingOperation": {
+      "enum": [
+        "workflow_intake",
+        "agent_planning",
+        "external_model_inference",
+        "knowledge_retrieval",
+        "tool_execution"
+      ],
+      "title": "ProcessingOperation",
+      "type": "string"
+    },
+    "ProcessingPurpose": {
+      "enum": [
+        "delivery_planning"
+      ],
+      "title": "ProcessingPurpose",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dataProfile": {
+      "$ref": "#/$defs/DataProfile"
+    },
+    "jurisdiction": {
+      "default": "US",
+      "title": "Jurisdiction",
+      "type": "string"
+    },
+    "operation": {
+      "$ref": "#/$defs/ProcessingOperation"
+    },
+    "overlayIds": {
+      "default": [
+        "common-us-baseline"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Overlayids",
+      "type": "array"
+    },
+    "provider": {
+      "title": "Provider",
+      "type": "string"
+    },
+    "purpose": {
+      "$ref": "#/$defs/ProcessingPurpose"
+    },
+    "subjectId": {
+      "title": "Subjectid",
+      "type": "string"
+    },
+    "tenantId": {
+      "default": "local-reference",
+      "title": "Tenantid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subjectId",
+    "purpose",
+    "operation",
+    "provider",
+    "dataProfile"
+  ],
+  "title": "ProcessingContext",
+  "type": "object"
+}
