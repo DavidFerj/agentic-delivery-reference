@@ -14,7 +14,7 @@ anyio==4.14.2
     #   langsmith
     #   starlette
     #   watchfiles
-certifi==2026.7.22
+certifi==2026.10.19
     # via
     #   httpcore
     #   httpx
