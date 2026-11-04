@@ -60,7 +60,7 @@ langchain-protocol==0.0.18
     # via
     #   langchain-core
     #   langgraph-sdk
-langgraph==1.2.10
+langgraph==1.2.14
     # via agentic-delivery-reference (pyproject.toml)
 langgraph-checkpoint==4.1.1
     # via
